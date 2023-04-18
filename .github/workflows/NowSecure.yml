@@ -77,6 +77,6 @@ jobs:
           group_id: "e487b673-6d93-4131-b4ec-b4d072916962"
 
       - name: Upload SARIF file
-        uses: github/codeql-action/upload-sarif@v2
+        uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: NowSecure.sarif
