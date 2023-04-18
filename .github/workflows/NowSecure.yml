@@ -52,7 +52,7 @@ jobs:
 
       - id: upload
         name: NowSecure upload app
-        uses: nowsecure/nowsecure-action/upload-app@v2
+        uses: nowsecure/nowsecure-action/upload-app@v3
         with:
           platform_token: ${{ secrets.NS_TOKEN }}
           app_file: output.ipa
@@ -71,17 +71,17 @@ jobs:
         uses: actions/checkout@v2
 
       - name: NowSecure download report
-        uses: nowsecure/nowsecure-action/convert-sarif@v2
+        uses: nowsecure/nowsecure-action/convert-sarif@v3
         timeout-minutes: 60
         with:
           report_id: ${{ needs.scan.outputs.report_id }}
-          token: ${{ secrets.NS_TOKEN }}
+          platform_token:: ${{ secrets.NS_TOKEN }}
           poll_interval_ms: 600000
           # TODO: Replace the Group ID.
           group_id: "e487b673-6d93-4131-b4ec-b4d072916962"
 
       - name: Upload SARIF file
-        uses: github/codeql-action/upload-sarif@v1
+        uses: github/codeql-action/upload-sarif@v2
         with:
           sarif_file: NowSecure.sarif
 
