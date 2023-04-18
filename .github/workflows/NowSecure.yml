@@ -31,23 +31,21 @@ jobs:
           path: /Users/runner/work/iOSVoteApp/iOSVoteApp/output.ipa
           retention-days: 3  
 
-# Scan the Android application with NowSecure.
   scan:
     runs-on: ubuntu-latest
     outputs:
       report_id: ${{ steps.upload.outputs.report_id }}
+    # The stage that builds the application.
     needs: build
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      # NOTE: ripgrep is required for line-of-code identification.
-      - name: Install ripgrep
-        run: sudo apt-get install -y ripgrep
-
+      # Replace with whatever pulls the application file before we upload.
       - name: Download application
         uses: actions/download-artifact@v2
         with:
+          # Generated in the "build" stage.
           name: app
 
       - id: upload
@@ -55,16 +53,15 @@ jobs:
         uses: nowsecure/nowsecure-action/upload-app@v3
         with:
           platform_token: ${{ secrets.NS_TOKEN }}
-          app_file: output.ipa
+          # TODO: Replace application path.
+          app_file: "output.ipa"
           # TODO: Replace the Group ID.
           group_id: "e487b673-6d93-4131-b4ec-b4d072916962"
-
-  # Pulls the NowSecure report, converts it to SARIF and uploads it.
+          
   process:
     if: ${{ needs.scan.outputs.report_id }}
     runs-on: ubuntu-latest
-    environment:
-      name: nowsecure-env
+    # The above stage we introduced.
     needs: scan
     steps:
       - name: Checkout repository
@@ -72,23 +69,14 @@ jobs:
 
       - name: NowSecure download report
         uses: nowsecure/nowsecure-action/convert-sarif@v3
-        timeout-minutes: 60
+        timeout-minutes: 90
         with:
           report_id: ${{ needs.scan.outputs.report_id }}
-          platform_token:: ${{ secrets.NS_TOKEN }}
-          poll_interval_ms: 600000
+          platform_token: ${{ secrets.NS_TOKEN }}
           # TODO: Replace the Group ID.
           group_id: "e487b673-6d93-4131-b4ec-b4d072916962"
 
       - name: Upload SARIF file
-        uses: github/codeql-action/upload-sarif@v2
+        uses: github/codeql-action/upload-sarif@v1
         with:
           sarif_file: NowSecure.sarif
-
-      - name: Upload SARIF to artifacts
-        uses: actions/upload-artifact@v2
-        with:
-          name: NowSecure.sarif
-          path: ./NowSecure.sarif
-               
-          
