@@ -2,7 +2,7 @@ name: "NowSecure"
 
 on:
   workflow_dispatch:
-    branches: [ mail ]
+    branches: [ main ]
     
     
 jobs:
