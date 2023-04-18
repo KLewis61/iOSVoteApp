@@ -1,0 +1,34 @@
+name: "NowSecure"
+
+on:
+  workflow_dispatch:
+    branches: [ mail ]
+    
+    
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        
+      - name: Build App 
+        uses: yukiarrr/ios-build-action@v1.5.0
+        with:
+          project-path: iOSVoteApp/iOSVoteApp.xcodeproj
+          p12-base64: ${{ secrets.P12_BASE64 }}
+          mobileprovision-base64: ${{ secrets.MY_MOBILEPROVISION_BASE64 }}
+          code-signing-identity: ${{ secrets.CODE_SIGNING_IDENTITY }}
+          team-id: ${{ secrets.TEAM_ID }}
+          certificate-password: ${{ secrets.CERTIFICATE_PASSWORD }}
+          configuration: "Release"
+          export-method: "ad-hoc"
+          
+      - name: Upload application
+        uses: actions/upload-artifact@v2
+        with:
+          name: app
+          path: /Users/runner/work/iOSVoteApp/iOSVoteApp/output.ipa
+          retention-days: 3  
+          
+          
