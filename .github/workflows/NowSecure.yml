@@ -54,7 +54,7 @@ jobs:
         name: NowSecure upload app
         uses: nowsecure/nowsecure-action/upload-app@v3
         with:
-          token: ${{ secrets.NS_TOKEN }}
+          platform_token: ${{ secrets.NS_TOKEN }}
           app_file: output.ipa
           # TODO: Replace the Group ID.
           group_id: "e487b673-6d93-4131-b4ec-b4d072916962"
