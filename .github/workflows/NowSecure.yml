@@ -42,6 +42,9 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
+        
+      - name: Install ripgrep
+        run: sudo apt-get install -y ripgrep
 
       # Replace with whatever pulls the application file before we upload.
       - name: Download application
@@ -54,7 +57,6 @@ jobs:
         name: NowSecure upload app
         uses: nowsecure/nowsecure-action/upload-app@v3
         with:
-          version_string: ${{ github.sha }}
           platform_token: ${{ secrets.NS_TOKEN }}
           # TODO: Replace application path.
           app_file: "output.ipa"
@@ -64,12 +66,19 @@ jobs:
   process:
     if: ${{ needs.scan.outputs.report_id }}
     runs-on: ubuntu-latest
-    permissions: write-all
+    permissions:
+      contents: read
+      security-events: write
+      actions: read
+
     # The above stage we introduced.
     needs: scan
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
+        
+      - name: Install ripgrep
+        run: sudo apt-get install -y ripgrep
 
       - name: NowSecure download report
         uses: nowsecure/nowsecure-action/convert-sarif@v3
@@ -80,14 +89,14 @@ jobs:
           # TODO: Replace the Group ID.
           group_id: "e487b673-6d93-4131-b4ec-b4d072916962"
 
+      - name: Upload SARIF file
+        uses: github/codeql-action/upload-sarif@v1
+        with:
+          sarif_file: NowSecure.sarif
+          
       - name: Save SARIF File
         uses: actions/upload-artifact@v2
         with:
           name: NowSecure SARIF
           path: NowSecure.sarif
           retention-days: 14
-
-      - name: Upload SARIF file
-        uses: github/codeql-action/upload-sarif@v1
-        with:
-          sarif_file: NowSecure.sarif
