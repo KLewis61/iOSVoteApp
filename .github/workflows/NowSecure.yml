@@ -52,6 +52,7 @@ jobs:
         name: NowSecure upload app
         uses: nowsecure/nowsecure-action/upload-app@v3
         with:
+          version_string: ${{ github.sha }}
           platform_token: ${{ secrets.NS_TOKEN }}
           # TODO: Replace application path.
           app_file: "output.ipa"
@@ -61,6 +62,7 @@ jobs:
   process:
     if: ${{ needs.scan.outputs.report_id }}
     runs-on: ubuntu-latest
+    permissions: write-all
     # The above stage we introduced.
     needs: scan
     steps:
