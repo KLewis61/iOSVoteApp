@@ -34,6 +34,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D422EB5B29F1B9D000A72A00 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		D4A53D9629EDA1AF006A341B /* iOSVoteApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOSVoteApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4A53D9929EDA1AF006A341B /* iOSVoteAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSVoteAppApp.swift; sourceTree = "<group>"; };
 		D4A53D9B29EDA1AF006A341B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -94,6 +95,7 @@
 		D4A53D9829EDA1AF006A341B /* iOSVoteApp */ = {
 			isa = PBXGroup;
 			children = (
+				D422EB5B29F1B9D000A72A00 /* Info.plist */,
 				D4A53D9929EDA1AF006A341B /* iOSVoteAppApp.swift */,
 				D4A53D9B29EDA1AF006A341B /* ContentView.swift */,
 				D4A53D9D29EDA1B0006A341B /* Assets.xcassets */,
@@ -420,6 +422,8 @@
 				DEVELOPMENT_TEAM = 9VH9PV6PZJ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = iOSVoteApp/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -450,6 +454,8 @@
 				DEVELOPMENT_TEAM = 9VH9PV6PZJ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = iOSVoteApp/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
