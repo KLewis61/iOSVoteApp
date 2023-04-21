@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import os.log
 
 
 struct ContentView: View {
@@ -31,6 +32,9 @@ struct ContentView: View {
         },
                label: { Text("Log in")}).accessibility(label: Text("Log In"))
 
+        let logger = Logger(subsystem: "com.klewis61.iosvoteapp", category: "main")
+        let _ = logger.info("Username = arthur.dent@nowsecure.com ")
+               
     }
 }
 
@@ -39,6 +43,8 @@ struct ContentView_Previews: PreviewProvider {
         ContentView()
     }
 }
+
+
 
 func sendRequestOverUrl(_ url: URL) {
    
