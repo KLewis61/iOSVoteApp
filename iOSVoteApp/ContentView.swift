@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+import os.log
 
 struct ContentView: View {
     var body: some View {
@@ -31,6 +31,10 @@ struct ContentView: View {
         },
                label: { Text("Log in")}).accessibility(label: Text("Log In"))
 
+        let logger = Logger(subsystem: "com.klewis61.iosvoteapp", category: "main")
+        let _ = logger.info("Username = MyUserName@nowsecure.com ")
+        let _ = logger.info("password = NotMyPassword")
+
     }
 }
 
@@ -46,8 +50,8 @@ func sendRequestOverUrl(_ url: URL) {
     request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
     request.httpMethod = "POST"
     let postDictionary = [
-        "username" : "arthur.dent@nowsecure.com",
-        "password" : "d0n7p4nic42"
+        "username" : "MyUserName@nowsecure.com ",
+        "password" : "NotMyPassword"
     ]
     let jsonData = try? JSONSerialization.data(withJSONObject: postDictionary, options: .prettyPrinted)
     request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
