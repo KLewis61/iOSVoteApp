@@ -1,4 +1,4 @@
-name: "NowSecure"
+name: "NS Test"
 
 on:
   workflow_dispatch:
